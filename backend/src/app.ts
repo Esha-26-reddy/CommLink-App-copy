@@ -8,7 +8,12 @@ import messageRoutes from "./routes/message";
 const app: Application = express();
 
 // ===== Middleware =====
-app.use(cors());
+
+const allowedOrigins = ["https://commlink-app-copy.onrender.com", "http://localhost:3000"];
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true,
+}));
 app.use(express.json());
 
 // ===== Routes =====
