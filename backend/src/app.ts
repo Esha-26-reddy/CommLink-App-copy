@@ -16,8 +16,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/requests", requestRoutes);
 app.use("/api/messages", messageRoutes);
 
-app.get("/api/test", (req, res) => {
-    res.status(200).json({message: "Backend is working!"});
+app.get("/", (req, res) => {
+    res.status(200).json({
+        message: "Backend is working!",
+        timestamp: new Date().toISOString()
+    });
 })
 
 export default app;
