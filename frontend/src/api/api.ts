@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: "https://commlink-app-fe.onrender.com/api",
 });
 
 // ✅ attach token automatically
