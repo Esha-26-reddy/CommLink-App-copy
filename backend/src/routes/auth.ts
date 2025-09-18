@@ -18,7 +18,7 @@ router.post("/signup", async (req: Request, res: Response) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    await User.create({ name, email, password, type });
+    await new User({ name, email, password, type }).save();
 
     // ✅ No token here — just confirm success, frontend redirects to login
     return res.status(201).json({
@@ -26,7 +26,7 @@ router.post("/signup", async (req: Request, res: Response) => {
       message: "Signup successful, please login",
     });
   } catch (err: any) {
-    console.error("Signup error:", err);
+    console.log("Signup error:", err.response?.data || err.message);
     return res
       .status(500)
       .json({ message: "Server error during signup" });
@@ -69,7 +69,7 @@ router.post("/login", async (req: Request, res: Response) => {
       },
     });
   } catch (err: any) {
-    console.error("Login error:", err);
+    console.log("Login failed:" + (err.response?.data || err.message));
     return res
       .status(500)
       .json({ message: "Server error during login" });
