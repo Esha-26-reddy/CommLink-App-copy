@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: commlink-backend   # you can change this name
+    env: node
+    plan: free               # or starter/standard if you need more resources
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000   # Render will auto-assign a port, your app must use process.env.PORT
+      - key: MONGO_URI
+        sync: false    # set in Render dashboard, not in repo
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
