@@ -38,36 +38,42 @@ router.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res
-      .status(400)
-      .json({ message: "Email and password are required" });
+    return res.status(400).json({ message: "Email and password are required" });
   }
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, password });
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
-    const valid = await user.comparePassword(password);
-    if (!valid) return res.status(400).json({ message: "Invalid credentials" });
+    // const valid = await user.comparePassword(password);
+    // if (!valid) return res.status(400).json({ message: "Invalid credentials" });
+
+
 
     // ✅ Cast _id to string
     const userId = user._id.toString();
 
-    const token = jwt.sign(
-      { id: userId, type: user.type },
-      process.env.JWT_SECRET || "secret",
-      { expiresIn: "7d" }
-    );
+    if(user) {
+      const token = jwt.sign(
+        { id: userId, type: user.type },
+        process.env.JWT_SECRET || "secret",
+        { expiresIn: "7d" }
+      );
 
-    return res.json({
-      token,
-      user: {
-        id: userId, // ✅ string, not ObjectId
-        name: user.name,
-        email: user.email,
-        type: user.type,
-      },
-    });
+      res.json({
+          token:token,
+          user: {
+          id: userId, // ✅ string, not ObjectId
+          name: user.name,
+          email: user.email,
+          type: user.type,
+        },
+      })
+
+      return;
+    }
+
+    return res.status(401).json({message: "Invalid email or password"})
   } catch (err: any) {
     console.log("Login failed:" + (err.response?.data || err.message));
     return res
