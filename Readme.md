@@ -27,13 +27,14 @@
 ### Backend Setup
 - cd backend
 - `npm install` to install all the dependencies.
-- Follow `.env.example` to create your own `.env` at the root level of /be
+- Follow `.env.example` to create your own `.env` at the root level of /backend
 - `npm run dev` to start the backend server.
 - Backend server runs on https://localhost:5000
 
 ### Frontend Setup
 - Navigate to cd frontend
 - `npm install` to install all the dependencies.
+- Follow `.env.example` to create your own `.env` at the root level of /frontend
 - `npm run dev` to start the frontend server.
 - Frontend server runs on https://localhost:5173 (Displayed on the terminal. If the port is busy check for the new port number).
 
