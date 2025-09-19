@@ -9,7 +9,7 @@ const app: Application = express();
 
 // ===== Middleware =====
 
-const allowedOrigins = ["https://commlink-app-copy.onrender.com", "http://localhost:3000", "https://commlink-app-fe-wnkm.onrender.com"];
+const allowedOrigins = ["https://commlink-app-copy.onrender.com", "http://localhost:3000"];
 app.use(cors({
     origin: allowedOrigins,
     credentials: true,
